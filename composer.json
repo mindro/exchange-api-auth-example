@@ -1,0 +1,13 @@
+{
+    "name": "mindro/bnk-exchange-auth-example",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Mindaugas Rolius",
+            "email": "m.rolius@spectrofinance.lt"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}
