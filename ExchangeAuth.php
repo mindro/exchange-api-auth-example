@@ -1,11 +1,14 @@
 <?php
 session_start();
 
-$url = 'https://api-exchange.bankera.com/oauth/token?grant_type=client_credentials';
+$url = 'https://api-exchange.bankera.com';
+$tokenUrl = '/oauth/token?grant_type=client_credentials';
+$usersInfoUrl = '/users/info';
 $clientId = '';
 $clientSecret = '';
 $encodedCredentials = base64_encode($clientId.":".$clientSecret);
 
+//Auth
 $opts = array('http' =>
 	array(
 		'method' => "GET",
@@ -14,8 +17,25 @@ $opts = array('http' =>
 );
 
 $context = stream_context_create($opts);
-$response = file_get_contents($url, false, $context);
+$response = file_get_contents($url.$tokenUrl, false, $context);
 
 $responseBody = json_decode($response);
 
-print_r(ucfirst($responseBody->token_type) . " " . $responseBody->access_token);
+$authToken = ucfirst($responseBody->token_type) . " " . $responseBody->access_token;
+print_r($authToken);
+
+
+//Call users info method with token
+$opts = array('http' =>
+	array(
+		'method' => "GET",
+		'header' => sprintf("Authorization: %s", $authToken)
+	)
+);
+
+$context = stream_context_create($opts);
+$userResponse = file_get_contents($url.$usersInfoUrl, false, $context);
+
+$userResponseBody = json_decode($userResponse);
+
+print_r($userResponseBody);
