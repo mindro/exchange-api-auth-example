@@ -1,0 +1,1 @@
+## Bankera Exchange API PHP Authentication Example
