@@ -22,8 +22,6 @@ $response = file_get_contents($url.$tokenUrl, false, $context);
 $responseBody = json_decode($response);
 
 $authToken = ucfirst($responseBody->token_type) . " " . $responseBody->access_token;
-print_r($authToken);
-
 
 //Call users info method with token
 $opts = array('http' =>
